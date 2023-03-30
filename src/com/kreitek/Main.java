@@ -1,17 +1,17 @@
 package com.kreitek;
 
-import com.kreitek.files.FileSystemItem;
+import com.kreitek.files.FileSystemItemBase;
 import com.kreitek.utils.FileSystemBuilder;
 import com.kreitek.utils.FileSystemPrinter;
 
 public class Main {
 
     public static void main(String[] args) {
-        FileSystemItem root = buildTestFileSystem();
+        FileSystemItemBase root = buildTestFileSystem();
         printResult(root);
     }
 
-    private static void printResult(FileSystemItem root) {
+    private static void printResult(FileSystemItemBase root) {
         System.out.println(
                 "**********************\n" +
                 "* Resultado esperado *\n" +
@@ -33,7 +33,7 @@ public class Main {
         FileSystemPrinter.print(root, 0);
     }
 
-    private static FileSystemItem buildTestFileSystem() {
+    private static FileSystemItemBase buildTestFileSystem() {
         return FileSystemBuilder.getBuilder()
                 .addFile("readme.txt", 42)
                 .addDirectory("src")

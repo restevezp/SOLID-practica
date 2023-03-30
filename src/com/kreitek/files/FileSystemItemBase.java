@@ -1,13 +1,14 @@
 package com.kreitek.files;
 
-import java.util.List;
+import com.kreitek.interfaces.InterDirectory;
+import com.kreitek.interfaces.InterFileSystemItem;
 
-public abstract class FileSystemItemBase implements FileSystemItem {
+public abstract class FileSystemItemBase implements InterFileSystemItem {
     protected static final String PATH_SEPARATOR = "/";
     protected String name;
-    protected FileSystemItem parent;
+    protected InterDirectory parent;
 
-    protected FileSystemItemBase(FileSystemItem parent, String name) {
+    protected FileSystemItemBase(InterDirectory parent, String name) {
         setName(name);
         setParent(parent);
     }
@@ -26,20 +27,14 @@ public abstract class FileSystemItemBase implements FileSystemItem {
     }
 
     @Override
-    public FileSystemItem getParent() {
+    public InterDirectory getParent() {
         return parent;
     }
 
     @Override
-    public void setParent(FileSystemItem directory) {
-        if (directory != null && !(directory instanceof Directory)) {
-            throw new IllegalArgumentException("El padre solo puede ser un directorio");
-        }
-        if (this.parent != directory) {
-            if (this.parent != null) this.parent.removeFile(this);
+    public void setParent(InterDirectory directory) {
+
             this.parent = directory;
-            if (directory != null) directory.addFile(this);
-        }
     }
 
     @Override
@@ -54,25 +49,6 @@ public abstract class FileSystemItemBase implements FileSystemItem {
     }
 
     @Override
-    public abstract String getExtension();
-
-    @Override
-    public abstract List<FileSystemItem> listFiles();
-
-    @Override
     public abstract int getSize();
 
-    @Override
-    public abstract void open();
-
-    @Override
-    public abstract void setPosition(int numberOfBytesFromBeginning);
-
-    @Override
-    public abstract byte[] read(int numberOfBytesToRead);
-
-    @Override
-    public abstract void write(byte[] buffer);
-
-    public abstract void close();
 }
